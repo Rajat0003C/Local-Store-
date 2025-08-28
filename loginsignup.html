@@ -16,7 +16,6 @@
       background: linear-gradient(135deg, #309a18, #326430);
     }
 
-    
     .container {
       width: 350px;
       background: #fff;
@@ -83,30 +82,7 @@
       <h2>Sign Up</h2>
       <input type="text" class="input-box" placeholder="Full Name" required>
       <input type="email" class="input-box" placeholder="Email" required>
-   <input type="text" class="input-box" placeholder="Phone Number" id="phone" maxlength="10" required>
-
-
-
-
-<script>
-  const phoneInput = document.getElementById("phone");
-
-  phoneInput.addEventListener("keypress", function (e) {
-    // Allow only numbers (0–9)
-    if (e.key < '0' || e.key > '9') {
-      e.preventDefault();
-    }
-  });
-
-  phoneInput.addEventListener("input", function () {
-    // Extra safety: remove anything not a number
-    this.value = this.value.replace(/[^0-9]/g, '');
-  });
-</script>
-
-
-
-
+      <input type="text" class="input-box" placeholder="Phone Number" id="phone" maxlength="10" required>
       <input type="password" class="input-box" placeholder="Password" required>
       <input type="password" class="input-box" placeholder="Confirm Password" required>
       <button type="submit" class="btn">Sign Up</button>
@@ -115,6 +91,7 @@
   </div>
 
   <script>
+    // Switch between forms
     function showSignup() {
       document.getElementById("loginForm").classList.add("hidden");
       document.getElementById("signupForm").classList.remove("hidden");
@@ -124,41 +101,40 @@
       document.getElementById("loginForm").classList.remove("hidden");
     }
 
-    
-  </script>
+    // Phone number validation
+    const phoneInput = document.getElementById("phone");
+    phoneInput.addEventListener("keypress", function (e) {
+      if (e.key < '0' || e.key > '9') {
+        e.preventDefault();
+      }
+    });
+    phoneInput.addEventListener("input", function () {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
 
-  <script>
-  const signupForm = document.getElementById("signupForm");
-
-  signupForm.addEventListener("submit", function (e) {
-    const password = signupForm.querySelectorAll("input[type='password']")[0].value;
-    const confirmPassword = signupForm.querySelectorAll("input[type='password']")[1].value;
-
-    if (password !== confirmPassword) {
+    // Signup form submit
+    const signupForm = document.getElementById("signupForm");
+    signupForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      alert("Passwords do not match!");
-    }
-  });
-</script>
-<script>
-  function showSignup() {
-    document.getElementById("loginForm").classList.add("hidden");
-    document.getElementById("signupForm").classList.remove("hidden");
-  }
+      const password = signupForm.querySelectorAll("input[type='password']")[0].value;
+      const confirmPassword = signupForm.querySelectorAll("input[type='password']")[1].value;
 
-  function showLogin() {
-    document.getElementById("signupForm").classList.add("hidden");
-    document.getElementById("loginForm").classList.remove("hidden");
-  }
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+      // Redirect on success
+      window.location.href = "home.html";
+    });
 
-
-  // Redirect to home.html after signup
-  document.getElementById("signupForm").addEventListener("submit", function (e) {
-    e.preventDefault(); // stop form from refreshing
-    window.location.href = "home.html"; 
-  });
-</script>
-
+    // Login form submit
+    const loginForm = document.getElementById("loginForm");
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      // For demo, just redirect
+      window.location.href = "home.html";
+    });
+  </script>
 
 </body>
 </html>
